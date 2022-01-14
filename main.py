@@ -40,5 +40,5 @@ def start_bot():
     executor.start_polling(dispatcher=dispatcher)
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     start_bot()
