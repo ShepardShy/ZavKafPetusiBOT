@@ -30,7 +30,7 @@ class DbConnector:
             create_table_query = """CREATE TABLE govno_coders(
                                     id INTEGER primary key autoincrement unique,
 	                                user_name TEXT not null unique,
-	                                msg_text TEXT not null;"""
+	                                msg_text TEXT not null);"""
             self.cursor.execute(create_table_query)
             self.connection.commit()
             logging.info("Create table apps on database")

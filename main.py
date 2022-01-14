@@ -23,6 +23,7 @@ async def process_start(message: types.Message):
     response = """Привет! Бот активен!\n
     Доступные команды:\n
     /govno - возвращает рандомного говно-кодера
+    
     """
     await message.answer(response)
 
