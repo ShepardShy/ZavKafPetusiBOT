@@ -72,8 +72,12 @@ async def russian_roulette(message: types.Message):
         await message.answer("Победителя нет, оба продолжили свой путь ниндзя в аудитории")
     elif first_coder_shot==False and second_coder_shot==True:
         await message.answer("Победитель: ", first_coder)
+        first_coder_shot = False
+        second_coder_shot = False
     elif first_coder_shot==True and second_coder_shot==False:
         await message.answer("Победитель: ", second_coder)
+        first_coder_shot = False
+        second_coder_shot = False
     else:
         await message.answer("Победителя нет, оба пошли играть в комнату")
  
