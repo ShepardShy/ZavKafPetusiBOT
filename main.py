@@ -73,7 +73,7 @@ async def russian_roulette(message: types.Message):
             await message.answer("Победитель: ", first_coder)
         if ((first_coder_shot == True) and (second_coder_shot == False)):
             await message.answer("Победитель: ", second_coder)
-        if ((first_coder_shot == True) and (second_coder_shot == False)):
+        if ((first_coder_shot == True) and (second_coder_shot == True)):
             await message.answer("Победителя нет, оба пошли играть в комнату")
 
 def start_bot():
