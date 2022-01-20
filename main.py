@@ -3,6 +3,8 @@ from database_connector import DbConnector
 import os
 import logging
 import random
+import requests
+from bs4 import BeautifulSoup as BS
 
 format_log = "%(asctime)s: %(message)s"
 logging.basicConfig(format=format_log, level=logging.INFO,
@@ -76,6 +78,27 @@ async def russian_roulette(message: types.Message):
         await message.answer("Победитель: ", second_coder)
     else:
         await message.answer("Победителя нет, оба пошли играть в комнату")
+
+@dispatcher.message_handler(commands=['anekdot'])
+async def joke(message: types.Message):
+    #выбираем случайный номер страницы и обращаемся к ней
+    page = random.randint(1, 3)
+    r = requests.get("https://anekdotbar.ru/pro-stalkerov/page/" + str(page))
+    html = BS(r.content, 'html.parser')
+
+    #Собираем все анекдоты и записываем их в массив
+    jokes = []
+    for el in html.select("#dle-content > .tecst"):
+        jokes.append(str(el))
+
+    #Выбираем случайный анекдот, приводим его в порядок и выводим на экран
+    idx = random.randint(0, len(jokes) - 1)
+    res = jokes[idx]
+    res = res.partition('<div class="wrrating">')[0]
+    res = res.partition('<div class="tecst">')[2]
+    res = res.replace('<br/>', '\n')
+    await message.answer(res)
+
  
 def start_bot():
     db.start_init()
