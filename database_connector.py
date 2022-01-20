@@ -56,7 +56,7 @@ class DbConnector:
                   ' врезался в отбойник чем привлек внимание З.', 'пошел в преподаватели УрТИСИ.']
         i = random.randint(0, len(answers) - 1)
         res = coder + answers[i]
-        await message.answer(res)
+        return res
 
     def answer_success(coder):
         answers = [' обучался у шаолиньских монахов, которые научили его скрытности.',
@@ -65,7 +65,7 @@ class DbConnector:
                   ' переиграл и уничтожид З.']
         i = random.randint(0, len(answers) - 1)
         res = coder + answers[i]
-        await message.answer(res)
+        return res
 
 def test():
     conn = DbConnector()
