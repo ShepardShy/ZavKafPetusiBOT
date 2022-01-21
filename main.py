@@ -48,36 +48,40 @@ async def russian_roulette(message: types.Message):
     second_coder = random_coder()[1]
     first_coder_shot = False
     second_coder_shot = False
+    res = ""
+    
     #Проверяем не стреляется ли человек сам с собой
     if (first_coder == second_coder):
         while (first_coder == second_coder):
             second_coder = random_coder()[1]
     else:
-        await message.answer("Игроки ", first_coder, " и ", second_coder, " решили испытать удачу и запустили Euro Truck Simulator 2")
-        #Выстрел первого игрока
-        bullet = random.randint(0, 6)
+        res += f'Игроки {first_coder} и {second_coder} решили испытать удачу и запустили евро трак симулятор \n\n'
+        #выстрел первого игрока
+        bullet = random.randint(0, 4)
         if (bullet == 3):
-            await message.answer(db.answer_fail(first_coder))
+            res += answer_fail(first_coder)
             first_coder_shot = True
         else:
-            await message.answer(db.answer_success(first_coder))
-        #Выстрел второго игрока
-        bullet = random.randint(0, 6)
+            res += answer_success(first_coder)
+        #выстрел второго игрока
+        bullet = random.randint(0, 4)
         if (bullet == 3):
-            await message.answer(db.answer_fail(second_coder))
+            res += answer_fail(second_coder)
             second_coder_shot = True
         else:
-            await message.answer(db.answer_success(second_coder))
+            res += answer_success(second_coder)
             
     #Вывод победителя
     if first_coder_shot==False and second_coder_shot==False:
-        await message.answer("Победителя нет, оба продолжили свой путь ниндзя в аудитории")
+         res += f'\nПобедителя нет, оба продолжили свой путь ниндзя в аудитории'
     elif first_coder_shot==False and second_coder_shot==True:
-        await message.answer("Победитель: ", first_coder)
+         res += f'\nПобедитель: {first_coder}'
     elif first_coder_shot==True and second_coder_shot==False:
-        await message.answer("Победитель: ", second_coder)
+         res += f'\nПобедитель: {second_coder}'
     else:
-        await message.answer("Победителя нет, оба пошли играть в комнату")
+         res += f'\nПобедителя нет, оба пошли играть в комнату'
+    await message.answer(res)
+
 
 @dispatcher.message_handler(commands=['anekdot'])
 async def joke(message: types.Message):
